@@ -1,3 +1,4 @@
+-- NOTE: This is not ALL the keymapping that I've made. Rlugin specific ones are in plugin modules.
 -- spaces not tabs
 vim.cmd("set expandtab")
 vim.cmd("set tabstop=4")

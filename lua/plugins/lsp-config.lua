@@ -1,11 +1,15 @@
 return {
     {
+        -- Mason installs the LSPs
         "williamboman/mason.nvim",
         config = function()
             require("mason").setup()
         end
     },
     {
+        -- mason-lspconfig bridges between mason and nvim-lsp config 
+        -- + it has this awesome 'ensure_installed' property that makes sure
+        -- that the lsps are definitely installed before proceeding
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup({
@@ -21,11 +25,13 @@ return {
         end
     },
     {
+        -- The Neovim plugin for using LSPs
         "neovim/nvim-lspconfig",
         config = function()
             local lspconfig = require('lspconfig')
 
             -- Language servers that I require
+            -- customised settings can go here
             lspconfig.lua_ls.setup {}
             lspconfig.arduino_language_server.setup {}
             lspconfig.clangd.setup {}

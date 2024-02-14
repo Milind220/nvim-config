@@ -14,6 +14,7 @@ return {
 		config = function()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
+                    "json-ls",
 					"lua_ls",
 					"arduino_language_server",
 					"clangd",

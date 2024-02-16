@@ -16,7 +16,6 @@ return {
 				ensure_installed = {
                     "json-ls",
 					"lua_ls",
-					"arduino_language_server",
 					"clangd",
 					"marksman",
 					"pyright",
@@ -38,20 +37,6 @@ return {
 			lspconfig.lua_ls.setup({
                 capabilities = capabilities
             })
-			lspconfig.arduino_language_server.setup({
-				cmd = {
-					"arduino-language-server",
-					"-cli-config",
-					"~/.arduino15/arduino-cli.yaml",
-					"-cli",
-					"arduino-cli",
-					"-clangd",
-					"clangd",
-					"-fqbn",
-					"arduino:avr:uno",
-				},
-                capabilities = capabilities
-			})
 			lspconfig.clangd.setup({
                 capabilities = capabilities
             })

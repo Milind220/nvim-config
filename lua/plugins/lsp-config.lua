@@ -16,10 +16,10 @@ return {
 				ensure_installed = {
                     "json-ls",
 					"lua_ls",
-					"clangd",
 					"marksman",
 					"pyright",
 					"rust_analyzer",
+                    -- ccls not on mason yet
 				},
 			})
 		end,
@@ -35,9 +35,6 @@ return {
 			-- Language servers that I require
 			-- customised settings can go here
 			lspconfig.lua_ls.setup({
-                capabilities = capabilities
-            })
-			lspconfig.clangd.setup({
                 capabilities = capabilities
             })
 			lspconfig.marksman.setup({

@@ -14,7 +14,7 @@ return {
 		config = function()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
-                    "json-ls",
+                    "jsonls",
 					"lua_ls",
 					"clangd",
 					"marksman",

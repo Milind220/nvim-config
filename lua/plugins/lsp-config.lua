@@ -52,8 +52,14 @@ return {
 
 			-- language server related keybindings
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {}) -- go to definition
+            vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, {}) -- go to declaration
+            vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, {}) -- go to implementation
+            vim.keymap.set('n', 'td', vim.lsp.buf.type_definition, {}) -- go to type definition
+            vim.keymap.set('n', 'gr', vim.lsp.buf.references, {})  -- list all references
+            vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, {}) -- rename across all files
+
+			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {}) -- code action 
 		end,
 	},
 }

@@ -12,17 +12,15 @@ vim.cmd("set nowrap")
 vim.g.mapleader = " "
 
 -- the escape key is waaaaayy too far away
-vim.keymap.set('i', 'jk', '<Esc>')
-vim.keymap.set('v', 'jk', '<Esc>')
+vim.keymap.set("i", "jk", "<Esc>")
+vim.keymap.set("v", "jk", "<Esc>")
 
 -- To copy and paste outside of nvim
-vim.keymap.set('n', '<leader>yy', '"+y')  -- yank entire line to sys clipboard
-vim.keymap.set('n', '<leader>Y', '"+yg_')  -- yank to the end of line
-vim.keymap.set('v', '<leader>y', '"+y')  -- yank selected bit
+vim.keymap.set("n", "<leader>yy", '"+y') -- yank entire line to sys clipboard
+vim.keymap.set("n", "<leader>Y", '"+yg_') -- yank to the end of line
+vim.keymap.set("v", "<leader>y", '"+y') -- yank selected bit
 
-vim.keymap.set('n', '<leader>p', '"+p')  -- paste from sys clipboard after cursor
-vim.keymap.set('n', '<leader>P', '"+P')  -- paste before cursor
-vim.keymap.set('v', '<leader>p', '"+p')  -- same, but for visual mode
-vim.keymap.set('v', '<leader>P', '"+P')
-
-
+vim.keymap.set("n", "<leader>p", '"+p') -- paste from sys clipboard after cursor
+vim.keymap.set("n", "<leader>P", '"+P') -- paste before cursor
+vim.keymap.set("v", "<leader>p", '"+p') -- same, but for visual mode
+vim.keymap.set("v", "<leader>P", '"+P')

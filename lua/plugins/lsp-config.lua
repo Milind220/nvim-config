@@ -14,7 +14,7 @@ return {
 		config = function()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
-                    "jsonls",
+					"jsonls",
 					"lua_ls",
 					"clangd",
 					"marksman",
@@ -29,37 +29,38 @@ return {
 		"neovim/nvim-lspconfig",
 		config = function()
 			local lspconfig = require("lspconfig")
-            -- This next line sets up the LSPs so that they have their stuff setup to allow for cmp-nvim-lsp to work
-            local capabilities = require('cmp_nvim_lsp').default_capabilities()
+			-- This next line sets up the LSPs so that they have their stuff setup to allow for cmp-nvim-lsp to work
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 			-- Language servers that I require
 			-- customised settings can go here
 			lspconfig.lua_ls.setup({
-                capabilities = capabilities
-            })
+				capabilities = capabilities,
+			})
 			lspconfig.clangd.setup({
-                capabilities = capabilities
-            })
+				capabilities = capabilities,
+			})
 			lspconfig.marksman.setup({
-                capabilities = capabilities
-            })
+				capabilities = capabilities,
+			})
 			lspconfig.pyright.setup({
-                capabilities = capabilities
-            })
+				capabilities = capabilities,
+			})
 			lspconfig.rust_analyzer.setup({
-                capabilities = capabilities
-            })
+				capabilities = capabilities,
+			})
 
 			-- language server related keybindings
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+			vim.keymap.set("n", "leader>gf", vim.lsp.buf.format, {}) -- format the file
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {}) -- go to definition
-            vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, {}) -- go to declaration
-            vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, {}) -- go to implementation
-            vim.keymap.set('n', 'td', vim.lsp.buf.type_definition, {}) -- go to type definition
-            vim.keymap.set('n', 'gr', vim.lsp.buf.references, {})  -- list all references
-            vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, {}) -- rename across all files
+			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {}) -- go to declaration
+			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {}) -- go to implementation
+			vim.keymap.set("n", "td", vim.lsp.buf.type_definition, {}) -- go to type definition
+			vim.keymap.set("n", "gr", vim.lsp.buf.references, {}) -- list all references
+			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {}) -- rename across all files
 
-			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {}) -- code action 
+			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {}) -- code action
 		end,
 	},
 }

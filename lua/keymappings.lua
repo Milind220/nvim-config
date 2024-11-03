@@ -24,3 +24,8 @@ vim.keymap.set("n", "<leader>p", '"+p') -- paste from sys clipboard after cursor
 vim.keymap.set("n", "<leader>P", '"+P') -- paste before cursor
 vim.keymap.set("v", "<leader>p", '"+p') -- same, but for visual mode
 vim.keymap.set("v", "<leader>P", '"+P')
+-- flutter related keymappings
+vim.keymap.set("n", "<leader>fr", ":FlutterRun<CR>") -- run the flutter app
+vim.keymap.set("n", "<leader>fh", ":FlutterHotReload<CR>") -- hot reload the flutter app
+vim.keymap.set("n", "<leader>fq", ":FlutterQuit<CR>") -- quit the flutter app
+vim.keymap.set('n', '<leader>fe', ':FlutterEmulators<CR>', { noremap = true, silent = true })

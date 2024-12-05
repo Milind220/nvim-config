@@ -5,6 +5,20 @@ vim.cmd("set tabstop=4")
 vim.cmd("set softtabstop=4")
 vim.cmd("set shiftwidth=4")
 
+-- Set indentation for Flutter/Dart files
+vim.cmd([[
+  autocmd FileType dart setlocal shiftwidth=2 " For block indentation
+  autocmd FileType dart setlocal softtabstop=2
+  autocmd FileType dart setlocal tabstop=2
+  autocmd FileType dart setlocal expandtab
+]])
+
+-- Adjust indentation for wrapped lines
+vim.cmd([[
+  autocmd FileType dart setlocal breakindent
+  autocmd FileType dart setlocal breakindentopt=shift:4
+]])
+
 -- don't wrap my lines ya bastard
 vim.cmd("set nowrap")
 

@@ -31,6 +31,10 @@ return {
             -- optional: additional settings here
           end,
         },
+        dev_tools = {
+          autostart = true, -- autostart devtools server if not detected
+          auto_open_browser = true, -- Automatically opens devtools in the browser
+        },
       }
     end,
   },

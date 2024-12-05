@@ -48,6 +48,19 @@ return {
 			})
 			lspconfig.rust_analyzer.setup({
 				capabilities = capabilities,
+                settings = {
+                    ["rust-analyzer"] = {
+                        checkOnSave = {
+                            command = "clippy",
+                        },
+                        diagnostics = {
+                            enable = true,
+                            experimental = {
+                                enable = true,
+                            },
+                        },
+                    }
+                },
 			})
 
 			-- language server related keybindings

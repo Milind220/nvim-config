@@ -52,3 +52,13 @@ vim.api.nvim_set_keymap('n', '<leader>-', '<C-w><', { noremap = true, silent = t
 -- Increase/decrease the height of the current horizontal split
 vim.api.nvim_set_keymap('n', '<leader>+', '<C-w>+', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>_', '<C-w>-', { noremap = true, silent = true })
+
+-- Change color background scheme
+vim.keymap.set("n", "<leader>cc", function()
+    if vim.o.background == "dark" then
+        vim.cmd("set background=light")
+    else
+        vim.cmd("set background=dark")
+    end
+end)
+

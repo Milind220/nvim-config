@@ -13,6 +13,10 @@ vim.opt.rtp:prepend(lazypath)
 vim.cmd("set relativenumber")
 vim.cmd("set number")
 
+-- Disable Neovim's built-in Markdown parser
+--vim.g.loaded_markdown_parser = 1
+--vim.g.loaded_lua_parser = 1
+
 require("keymappings")
 require("lazy").setup({
     {

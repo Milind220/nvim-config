@@ -28,81 +28,92 @@ return {
 					"cssls",
 				},
 				automatic_installation = true,
-			})
+				automatic_enable = true,
+				handlers = {
+					-- default handler for all servers
+					function(server_name)
+						require("lspconfig")[server_name].setup({
+							capabilities = require("cmp_nvim_lsp").default_capabilities(),
+						})
+					end,
 
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			local lspconfig_util = require("lspconfig.util")
-
-			require("mason-lspconfig").setup_handlers({
-				-- default handler for all servers
-				function(server_name)
-					require("lspconfig")[server_name].setup({
-						capabilities = capabilities,
-					})
-				end,
-
-				-- Override for rust_analyzer to keep your custom settings
-				["rust_analyzer"] = function()
-					require("lspconfig").rust_analyzer.setup({
-						capabilities = capabilities,
-						settings = {
-							["rust-analyzer"] = {
-								checkOnSave = {
-									command = "clippy",
-								},
-								diagnostics = {
-									enable = true,
-									experimental = {
+					-- override for rust-analyzer
+					["rust_analyzer"] = function()
+						require("lspconfig").rust_analyzer.setup({
+							capabilities = require("cmp_nvim_lsp").default_capabilities(),
+							settings = {
+								["rust-analyzer"] = {
+									checkOnSave = {
+										command = "clippy",
+									},
+									diagnostics = {
 										enable = true,
+										experimental = {
+											enable = true,
+										},
 									},
 								},
 							},
-						},
-					})
-				end,
-				-- explicitly configure denols to avoid conflicts
-				["denols"] = function()
-					require("lspconfig").denols.setup({
-						capabilities = capabilities,
-						root_dir = require("lspconfig").util.root_pattern("deno.json", "deno.jsonc"),
-					})
-				end,
-				-- explicitly configure ts_ls to avoid conflicts
-				["ts_ls"] = function()
-					require("lspconfig").ts_ls.setup({
-						capabilities = capabilities,
-						root_dir = function(fname)
-							-- find the root dir for ts_ls
-							local node_root =
-								lspconfig_util.root_pattern("package.json", "tsconfig.json", "jsconfig.json")(fname)
+						})
+					end,
+					-- explicitly configure denols to avoid conflicts
+					["denols"] = function()
+						require("lspconfig").denols.setup({
+							capabilities = require("cmp_nvim_lsp").default_capabilities(),
+							root_dir = require("lspconfig").util.root_pattern("deno.json", "deno.jsonc"),
+						})
+					end,
+					-- explicitly configure ts_ls to avoid conflicts
+					["ts_ls"] = function()
+						require("lspconfig").ts_ls.setup({
+							capabilities = require("cmp_nvim_lsp").default_capabilities(),
+							root_dir = function(fname)
+								-- find the root dir for ts_ls
+								local node_root = require("lspconfig").util.root_pattern(
+                                    "package.json", 
+                                    "tsconfig.json", 
+                                    "jsconfig.json"
+                                )(fname)
+								-- get dir for the current file
+								local file_dir = vim.fn.fnamemodify(fname, ":h")
 
-							-- get dir for the current file
-							local file_dir = vim.fn.fnamemodify(fname, ":h")
+								-- check if deno.json or deno.jsonc
+								local has_deno_json = vim.fn.filereadable(file_dir .. "/deno.json") == 1
+								local has_deno_jsonc = vim.fn.filereadable(file_dir .. "/deno.jsonc") == 1
 
-							-- check if deno.json or deno.jsonc
-							local has_deno_json = vim.fn.filereadable(file_dir .. "/deno.json") == 1
-							local has_deno_jsonc = vim.fn.filereadable(file_dir .. "/deno.jsonc") == 1
+								-- if deno.json or deno.jsonc exist, then don't attach ts_ls
+								if has_deno_json or has_deno_jsonc then
+									return nil
+								end
 
-							-- if deno.json or deno.jsonc exist, then don't attach ts_ls
-							if has_deno_json or has_deno_jsonc then
-								return nil
-							end
-
-							-- otherwise, return the node_root
-							return node_root
-						end,
-						on_attach = function(client, bufnr)
-							-- Fallback: Stop ts_ls if a deno.json is present
-							local file_dir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":h")
-							file_dir = lspconfig_util.path.join(file_dir, "")
-							local has_deno_json = vim.fn.filereadable(file_dir .. "deno.json") == 1
-							local has_deno_jsonc = vim.fn.filereadable(file_dir .. "deno.jsonc") == 1
-							if has_deno_json or has_deno_jsonc then
-								client.stop()
-							end
-						end,
-					})
-				end,
+								-- otherwise, return the node_root
+								return node_root
+							end,
+							on_attach = function(client, bufnr)
+								-- Fallback: Stop ts_ls if a deno.json is present
+								local file_dir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":h")
+								file_dir = require("lspconfig").util.path.join(file_dir, "")
+								local has_deno_json = vim.fn.filereadable(file_dir .. "deno.json") == 1
+								local has_deno_jsonc = vim.fn.filereadable(file_dir .. "deno.jsonc") == 1
+								if has_deno_json or has_deno_jsonc then
+									client.stop()
+								end
+							end,
+						})
+					end,
+                    ["lua_ls"] = function()
+                        require("lspconfig").lua_ls.setup({
+                            capabilities = require("cmp_nvim_lsp").default_capabilities(),
+                            settings = {
+                                Lua = {
+                                    diagnostics = {
+                                        globals = { "vim" },
+                                    },
+                                },
+                            },
+                        })
+                    end,
+				},
 			})
 		end,
 	},

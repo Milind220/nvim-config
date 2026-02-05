@@ -64,10 +64,14 @@ vim.api.nvim_set_keymap('n', '<leader>_', '<C-w>-', { noremap = true, silent = t
 
 -- Change color background scheme
 vim.keymap.set("n", "<leader>cc", function()
-    if vim.o.background == "dark" then
-        vim.cmd("set background=light")
-    else
-        vim.cmd("set background=dark")
-    end
+    require("theme").toggle()
 end)
 
+-- Theme picker (preview in Telescope)
+vim.keymap.set("n", "<leader>ct", function()
+    require("theme").select()
+end)
+
+-- Set default light/dark theme to current colorscheme
+vim.keymap.set("n", "<leader>cL", ":ThemeSetLight<CR>")
+vim.keymap.set("n", "<leader>cD", ":ThemeSetDark<CR>")

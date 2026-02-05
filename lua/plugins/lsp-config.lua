@@ -37,6 +37,13 @@ return {
 							capabilities = require("cmp_nvim_lsp").default_capabilities(),
 						})
 					end,
+                    -- override for clangd
+                    ["clangd"] = function()
+                        require("lspconfig").clangd.setup({
+                            capabilities = require("cmp_nvim_lsp").default_capabilities(),
+                            root_dir = vim.fn.getcwd(),
+                        })
+                    end,
 
 					-- override for rust-analyzer
 					["rust_analyzer"] = function()

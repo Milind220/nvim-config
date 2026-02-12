@@ -19,7 +19,6 @@ return {
 					"clangd",
 					"marksman",
 					"pyright",
-					"rust_analyzer",
 					"biome",
 					"ts_ls",
 					"denols",
@@ -48,6 +47,7 @@ return {
 					-- override for rust-analyzer
 					["rust_analyzer"] = function()
 						require("lspconfig").rust_analyzer.setup({
+							cmd = { "rustup", "run", "stable", "rust-analyzer" },
 							capabilities = require("cmp_nvim_lsp").default_capabilities(),
 							settings = {
 								["rust-analyzer"] = {
@@ -59,6 +59,9 @@ return {
 										experimental = {
 											enable = true,
 										},
+									},
+									procMacro = {
+										enable = true,
 									},
 								},
 							},
